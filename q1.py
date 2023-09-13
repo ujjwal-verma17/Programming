@@ -1,0 +1,25 @@
+#assignment 7
+#question 1
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+boundary_condition=[0,0]
+h=0.05
+k= 0.05
+x=np.arange(0,1+h,h)
+t=np.arange(0,1+k,k)
+#initialcondition=np.sin(np.pi*x)
+initialcondition=np.e**(-x)
+n=len(x)
+m=len(t)
+T=np.zeros((n,m))
+T[0,:]=boundary_condition[0]
+T[-1,:]=boundary_condition[1]
+T[:,0]=initialcondition
+#print(T.round(3))
+fact=k/h**2
+for j in range(1,m):
+    for i in range(1,n-1):
+        T[i,j]=fact*T[i-1,j-1]+(1-2*fact)*T[i,j-1] +fact*T[i+1,j-1]
+T.round(3)    
+plt.plot(T)
